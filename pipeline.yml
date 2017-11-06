@@ -1,0 +1,41 @@
+---
+resource_types:
+- name: maven-resource
+  type: docker-image
+  source:
+    repository: pivotalpa/maven-resource
+    tag: latest
+
+resources:
+- name: uaa-jar
+  type: maven-resource
+  source:
+    url: https://repo1.maven.org/maven2
+    artifact: org.cloudfoundry.identity:cloudfoundry-identity-uaa:war
+
+- name: manifest
+  type: git
+  source:
+    uri: https://github.com/DanielJonesEB/uaa-manifest.git
+    branch: master
+
+- name: cf
+  type: cf
+  source:
+    api: https://api.local.pcfdev.io
+    username: admin
+    password: admin
+    organization: pcfdev-org
+    space: pcfdev-space
+
+
+jobs:
+- name: do-the-thing
+  plan:
+  - get: uaa-jar
+    trigger: true
+  - get: manifest
+    trigger: true
+  - put: cf
+    params:
+      manifest: uaa-manifest/uaa_manifest.yml
