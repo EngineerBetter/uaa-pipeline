@@ -27,6 +27,7 @@ resources:
     password: admin
     organization: pcfdev-org
     space: pcfdev-space
+    skip_cert_check: true
 
 
 jobs:
@@ -38,4 +39,4 @@ jobs:
     trigger: true
   - put: cf
     params:
-      manifest: uaa-manifest/uaa_manifest.yml
+      manifest: manifest/uaa_manifest.yml
