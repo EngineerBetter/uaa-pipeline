@@ -4,10 +4,10 @@ applications:
   memory: 1024M
   disk_quota: 1024M
   routes:
-  - route: myuaa.apps.local.pcfdev.io
+  - route: myuaa.local.pcfdev.io
   env:
     JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: true}'
-    LOGIN_URL: http://myuaa.apps.local.pcfdev.io
+    LOGIN_URL: http://myuaa.local.pcfdev.io
     UAA_CONFIG_YAML: |
       spring_profiles: default
       login:
@@ -55,7 +55,7 @@ applications:
       zones:
        internal:
          hostnames:
-           - myuaa.apps.local.pcfdev.io
+           - myuaa.local.pcfdev.io
       database:
         # url: <url starting with jdbc here>
         # username: <db username>
@@ -63,7 +63,7 @@ applications:
         maxactive: 15
         maxidle: 5
         minidle: 1
-    UAA_URL: http://myuaa.apps.local.pcfdev.io
+    UAA_URL: http://myuaa.local.pcfdev.io
   services:
   - uaa-db
   stack: cflinuxfs2
