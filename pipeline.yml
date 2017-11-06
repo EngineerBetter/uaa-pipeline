@@ -61,6 +61,7 @@ jobs:
     trigger: true
   - put: cf-tf
     params:
+      env_name: local
       terraform_source: uaa-tf/tf/
 - name: deploy-uaa
   plan:
