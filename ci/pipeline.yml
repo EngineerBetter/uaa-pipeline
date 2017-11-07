@@ -9,7 +9,7 @@ resource_types:
 - name: terraform
   type: docker-image
   source:
-    repository: ljfranklin/terraform-resource
+    repository: engineerbetter/cf-terraform-image
 
 resources:
 - name: uaa-jar
@@ -18,21 +18,21 @@ resources:
     url: https://repo1.maven.org/maven2
     artifact: org.cloudfoundry.identity:cloudfoundry-identity-uaa:war
 
-- name: manifest
+- name: manifest-repo
   type: git
   source:
-    uri: https://github.com/DanielJonesEB/uaa-manifest.git
+    uri: https://github.com/engineerbetter/uaa-pipeline.git
     branch: master
     paths:
-    - uaa_manifest.yml
+    - assets/uaa-manifest.yml
 
-- name: uaa-tf
+- name: terraform-repo
   type: git
   source:
-    uri: https://github.com/DanielJonesEB/uaa-manifest.git
+    uri: https://github.com/engineerbetter/uaa-pipeline.git
     branch: master
     paths:
-    - tf/*
+    - terraform/*
 
 - name: cf-tf
   type: terraform
@@ -54,22 +54,22 @@ resources:
     space: pcfdev-space
     skip_cert_check: true
 
-
 jobs:
-- name: tf-cf
+- name: terraform-cf
   plan:
-  - get: uaa-tf
+  - get: terraform-repo
     trigger: true
   - put: cf-tf
     params:
       env_name: local
-      terraform_source: uaa-tf/tf/
+      terraform_source: terraform-repo/tf/
+
 - name: deploy-uaa
   plan:
   - get: uaa-jar
     trigger: true
-  - get: manifest
+  - get: manifest-repo
     trigger: true
   - put: cf
     params:
-      manifest: manifest/uaa_manifest.yml
+      manifest: manifest-repo/assets/uaa_manifest.yml
