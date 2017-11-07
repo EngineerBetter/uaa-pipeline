@@ -67,6 +67,10 @@ jobs:
     - terraform-cf
   - get: uaa-war
     trigger: true
+  - get: cf-tf
+    trigger: true
+    passed:
+    - terraform-cf
   - put: cf
     params:
       manifest: uaa-pipeline-repo/assets/uaa_manifest.yml
