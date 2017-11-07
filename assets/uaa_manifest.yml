@@ -5,6 +5,7 @@ applications:
   disk_quota: 1024M
   routes:
   - route: myuaa.local.pcfdev.io
+  buildpack: java-buildpack
   env:
     JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: true}'
     LOGIN_URL: http://myuaa.local.pcfdev.io
