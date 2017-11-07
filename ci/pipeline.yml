@@ -12,26 +12,19 @@ resource_types:
     repository: engineerbetter/cf-terraform-image
 
 resources:
-- name: uaa-jar
+- name: uaa-war
   type: maven-resource
   source:
     url: https://repo1.maven.org/maven2
     artifact: org.cloudfoundry.identity:cloudfoundry-identity-uaa:war
 
-- name: manifest-repo
+- name: uaa-pipeline-repo
   type: git
   source:
     uri: https://github.com/engineerbetter/uaa-pipeline.git
     branch: master
     paths:
-    - assets/uaa-manifest.yml
-
-- name: terraform-repo
-  type: git
-  source:
-    uri: https://github.com/engineerbetter/uaa-pipeline.git
-    branch: master
-    paths:
+    - assets/uaa_manifest.yml
     - terraform/*
 
 - name: cf-tf
@@ -43,6 +36,8 @@ resources:
       region_name: eu-west-2
       access_key_id: {{concourse_ci_s3_access_key}}
       secret_access_key: {{concourse_ci_s3_secret_key}}
+    env:
+      HOME: /root
 
 - name: cf
   type: cf
@@ -57,19 +52,22 @@ resources:
 jobs:
 - name: terraform-cf
   plan:
-  - get: terraform-repo
+  - get: uaa-pipeline-repo
     trigger: true
   - put: cf-tf
     params:
       env_name: local
-      terraform_source: terraform-repo/tf/
+      terraform_source: uaa-pipeline-repo/terraform/
 
 - name: deploy-uaa
   plan:
-  - get: uaa-jar
+  - get: uaa-pipeline-repo
     trigger: true
-  - get: manifest-repo
+    passed:
+    - terraform-cf
+  - get: uaa-war
     trigger: true
   - put: cf
     params:
-      manifest: manifest-repo/assets/uaa_manifest.yml
+      manifest: uaa-pipeline-repo/assets/uaa_manifest.yml
+      path: uaa-war/cloudfoundry-identity-uaa-*.war
