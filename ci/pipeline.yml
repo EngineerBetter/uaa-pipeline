@@ -85,5 +85,5 @@ jobs:
   - put: cf
     params:
       manifest: uaa-pipeline-repo/assets/uaa_manifest.yml
-      # path: temp/cloudfoundry-identity-uaa-*.war
-      path: temp-bucket/*.war
+      path: uaa-war/cloudfoundry-identity-uaa-*.war
+      # path: temp-bucket/*.war
