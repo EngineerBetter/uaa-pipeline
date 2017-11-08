@@ -6,7 +6,7 @@ applications:
   timeout: 60
   routes:
   - route: myuaa.local.pcfdev.io
-  buildpack: java_buildpack
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git#v3.19.2
   env:
     JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: true}'
     LOGIN_URL: http://myuaa.local.pcfdev.io
