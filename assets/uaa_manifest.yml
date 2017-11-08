@@ -4,6 +4,7 @@ applications:
   memory: 1024M
   disk_quota: 1024M
   health-check-type: http
+  timeout: 60
   routes:
   - route: myuaa.local.pcfdev.io
   buildpack: java_buildpack
