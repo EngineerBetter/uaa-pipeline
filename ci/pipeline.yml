@@ -95,7 +95,7 @@ jobs:
         args:
         - -euc
         - |
-          sed "s/@app@/$APP_NAME/g;s/@appdomain@/$CF_APP_DOMAIN/g" uaa-pipeline-repo/assets/uaa_manifest.yml > uaa-manifest/manifest.yml
+          sed "s/@appname@/$APP_NAME/g;s/@appdomain@/$CF_APP_DOMAIN/g" uaa-pipeline-repo/assets/uaa_manifest.yml > uaa-manifest/manifest.yml
   - put: cf
     params:
       manifest: uaa-manifest/manifest.yml
