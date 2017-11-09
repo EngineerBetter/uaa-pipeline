@@ -9,6 +9,8 @@ Populate a secrets file called `secrets.yml` using the following template:
 ```yaml
 cf_api: https://api.local.pcfdev.io
 cf_app_domain: local.pcfdev.io
+cf_org: pcfdev-org
+cf_space: pcfdev-space
 cf_username: admin
 cf_password: admin
 

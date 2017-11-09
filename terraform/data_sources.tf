@@ -1,8 +1,8 @@
-data "cloudfoundry_organization" "pcfdev" {
-  name = "pcfdev-org"
+data "cloudfoundry_organization" "cf" {
+  name = "${var.cf_org}"
 }
 
-data "cloudfoundry_space" "pcfdev" {
-    name = "pcfdev-space"
-    org_id = "${data.cloudfoundry_organization.pcfdev.id}"
+data "cloudfoundry_space" "cf" {
+    name = "${var.cf_space}"
+    org_id = "${data.cloudfoundry_organization.cf.id}"
 }
