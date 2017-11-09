@@ -7,11 +7,11 @@ applications:
   health-check-http-endpoint: /healthz
   timeout: 60
   routes:
-  - route: myuaa.local.pcfdev.io
+  - route: @appname@.@appdomain@
   buildpack: https://github.com/cloudfoundry/java-buildpack.git#v3.19.2
   env:
     JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: true}'
-    LOGIN_URL: http://myuaa.local.pcfdev.io
+    LOGIN_URL: http://@appname@.@appdomain@
     UAA_CONFIG_YAML: |
       spring_profiles: default, mysql
       login:
@@ -59,7 +59,7 @@ applications:
       zones:
        internal:
          hostnames:
-           - myuaa.local.pcfdev.io
+           - @appname@.@appdomain@
       database:
         # url: <url starting with jdbc here>
         # username: <db username>
@@ -67,7 +67,7 @@ applications:
         maxactive: 15
         maxidle: 5
         minidle: 1
-    UAA_URL: http://myuaa.local.pcfdev.io
+    UAA_URL: http://@appname@.@appdomain@
   services:
   - uaa-db
   stack: cflinuxfs2

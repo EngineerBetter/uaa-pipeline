@@ -12,15 +12,6 @@ resource_types:
     repository: engineerbetter/cf-terraform-image
 
 resources:
-- name: temp-bucket
-  type: s3
-  source:
-    bucket: colin-uaa-stuff
-    versioned_file: cloudfoundry-identity-uaa-4.7.0.war
-    access_key_id: ((concourse_ci_s3_access_key))
-    secret_access_key: ((concourse_ci_s3_secret_key))
-    region_name: eu-west-2
-
 - name: uaa-war
   type: maven-resource
   source:
@@ -67,6 +58,10 @@ jobs:
     params:
       env_name: local
       terraform_source: uaa-pipeline-repo/terraform/
+      vars:
+        cf_api: ((cf_api))
+        cf_username: ((cf_username))
+        cf_password: ((cf_password))
 
 - name: deploy-uaa
   plan:
@@ -80,10 +75,28 @@ jobs:
     trigger: true
     passed:
     - terraform-cf
-  - get: temp-bucket
-    trigger: true
+  - task: build-manifest
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: engineerbetter/pcf-ops
+          tag: latest
+      inputs:
+      - name: uaa-pipeline-repo
+      outputs:
+      - name: uaa-manifest
+      params:
+        APP_NAME: ((uaa_app_name))
+        CF_APP_DOMAIN: ((cf_app_domain))
+      run:
+        path: bash
+        args:
+        - -euc
+        - |
+          sed "s/@app@/$APP_NAME/g;s/@appdomain@/$CF_APP_DOMAIN/g" uaa-pipeline-repo/assets/uaa_manifest.yml > uaa-manifest/manifest.yml
   - put: cf
     params:
-      manifest: uaa-pipeline-repo/assets/uaa_manifest.yml
+      manifest: uaa-manifest/manifest.yml
       path: uaa-war/cloudfoundry-identity-uaa-*.war
-      # path: temp-bucket/*.war
