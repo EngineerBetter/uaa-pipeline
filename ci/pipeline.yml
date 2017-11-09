@@ -64,6 +64,8 @@ jobs:
         cf_password: ((cf_password))
         cf_org: ((cf_org))
         cf_space: ((cf_space))
+        cf_service_name: ((cf_service_name))
+        cf_service_plan: ((cf_service_plan))
 
 - name: deploy-uaa
   plan:
