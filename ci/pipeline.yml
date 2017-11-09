@@ -43,11 +43,11 @@ resources:
   type: cf
   source:
     api: https://api.local.pcfdev.io
-    username: admin
-    password: admin
-    organization: pcfdev-org
-    space: pcfdev-space
-    skip_cert_check: true
+    username: ((cf_username))
+    password: ((cf_password))
+    organization: ((cf_org))
+    space: ((cf_space))
+    skip_cert_check: ((skip_cert_check))
 
 jobs:
 - name: terraform-cf
@@ -92,14 +92,12 @@ jobs:
       params:
         APP_NAME: ((uaa_app_name))
         CF_APP_DOMAIN: ((cf_app_domain))
+        RANDOM_ROUTE: ((random_route))
       run:
         path: bash
         args:
         - -euc
         - |
-          set +u
-          RANDOM_ROUTE="${RANDOM_ROUTE:-false}"
-          set -u
           sed "s/@appname@/$APP_NAME/g;s/@appdomain@/$CF_APP_DOMAIN/g;s/@random_route@/$RANDOM_ROUTE/g" uaa-pipeline-repo/assets/uaa_manifest.yml > uaa-manifest/manifest.yml
   - put: cf
     params:
