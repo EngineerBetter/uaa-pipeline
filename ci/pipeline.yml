@@ -42,7 +42,7 @@ resources:
 - name: cf
   type: cf
   source:
-    api: https://api.local.pcfdev.io
+    api: ((cf_api))
     username: ((cf_username))
     password: ((cf_password))
     organization: ((cf_org))
