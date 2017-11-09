@@ -6,6 +6,8 @@ A Concourse pipeline for deploying a UAA as a CF app
 
 Populate a secrets file called `secrets.yml` an example for pcfdev is below:
 
+*NOTE*: the `uaa_app_name` must provide a unique route for the app
+
 ```yaml
 cf_api: https://api.local.pcfdev.io
 cf_app_domain: local.pcfdev.io
@@ -22,8 +24,6 @@ concourse_ci_s3_secret_key: %SECRET_KEY%
 tf_bucket_name: a_cool_name
 
 uaa_app_name: myuaa
-
-random_route: false
 
 skip_cert_check: true
 ```
