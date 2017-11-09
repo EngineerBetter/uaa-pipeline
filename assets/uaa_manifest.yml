@@ -13,7 +13,7 @@ applications:
     JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: true}'
     LOGIN_URL: http://@appname@.@appdomain@
     UAA_CONFIG_YAML: |
-      spring_profiles: mysql
+      spring_profiles: default, mysql
       login:
         serviceProviderKey: |
           -----BEGIN RSA PRIVATE KEY-----
