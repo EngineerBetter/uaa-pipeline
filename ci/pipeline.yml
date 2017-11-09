@@ -31,7 +31,7 @@ resources:
   type: terraform
   source:
     storage:
-      bucket: deejay-cf-tf
+      bucket: ((tf_bucket_name))
       bucket_path: terraform/
       region_name: eu-west-2
       access_key_id: ((concourse_ci_s3_access_key))

@@ -15,6 +15,8 @@ cf_password: admin
 concourse_ci_s3_access_key: %ACCESS_KEY%
 concourse_ci_s3_secret_key: %SECRET_KEY%
 
+tf_bucket_name: a_cool_name
+
 uaa_app_name: myuaa
 ```
 
