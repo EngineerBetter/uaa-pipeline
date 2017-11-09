@@ -68,6 +68,7 @@ jobs:
         cf_service_plan: ((cf_service_plan))
 
 - name: deploy-uaa
+  serial: true
   plan:
   - get: uaa-pipeline-repo
     trigger: true
