@@ -108,3 +108,53 @@ jobs:
     params:
       manifest: uaa-manifest/manifest.yml
       path: uaa-war/cloudfoundry-identity-uaa-*.war
+
+- name: test-uaa
+  plan:
+  - get: uaa-pipeline-repo
+    trigger: true
+    passed:
+    - deploy-uaa
+  - get: cf-tf
+    trigger: true
+    passed:
+    - deploy-uaa
+  - task: test-uaa
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: governmentpaas/cf-uaac
+          tag: latest
+      params:
+        APP_NAME: ((uaa_app_name))
+        CF_APP_DOMAIN: ((cf_app_domain))
+        ADMIN_SECRET: ((admin_secret))
+        USER_PASSWORD: ((user_password))
+      run:
+        path: sh
+        args:
+        - -euc
+        - |
+          echo "Log in to UAA"
+          if [ "${SKIP_CERT_CHECK}" = "true" ]; then
+            uaac target https://${APP_NAME}.${CF_APP_DOMAIN} --skip-ssl-validation
+          else
+            uaac target https://${APP_NAME}.${CF_APP_DOMAIN}
+          fi
+
+          echo "Check that admin client exists"
+          uaac token client get admin -s ${ADMIN_SECRET}
+
+          echo "Check that default account doesn't exist"
+          uaac token owner get cf marissa -s "" -p koala
+
+          echo "Check that the bootstrapped user exists..."
+          uaac user get user -a username
+
+          echo "... and can obtain a token..."
+          uaac token owner get cf marissa -s "" -p ${USER_PASSWORD}
+
+          echo "... and that the token is valid"
+          token decode
