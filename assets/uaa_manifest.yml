@@ -62,7 +62,7 @@ applications:
             authorized-grant-types: client_credentials
             authorities: clients.read,clients.write,clients.secret,uaa.admin,scim.read,scim.write,password.write
             scope: uaa.admin
-            id: admin-client
+            id: admin
             secret: client-secret
       scim:
         # format is username|password|email|first_name|last_name(|comma-separated-authorities)
@@ -70,8 +70,8 @@ applications:
         user:
           override: true
         users:
-        - admin|user-admin|admin|||uaa.admin
-        - user|user-user|user|||uaa.user
+        - admin-user|test-admin-password|admin-user|||uaa.admin
+        - user|test-user-password|user|||uaa.user
       zones:
        internal:
          hostnames:
