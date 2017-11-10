@@ -58,12 +58,12 @@ applications:
           signing-key: tokenKey
       oauth:
         clients:
-          superadmin:
+          admin:
             authorized-grant-types: client_credentials
             authorities: uaa.admin,clients.read,clients.write,clients.secret,scim.read,scim.write,clients.admin
             scope: uaa.none
-            secret: client-secret
-          admin:
+            secret: @adminsecret@
+          cf:
             authorized-grant-types: password, refresh_token
             authorities: uaa.none
             scope: uaa.user,password.write,scim.userids,scim.read,scim.write
@@ -76,8 +76,7 @@ applications:
         user:
           override: true
         users:
-        - admin-user|test-admin-password|admin-user|||uaa.admin
-        - user|test-user-password|user|||uaa.user
+        - user|@userpassword@|user|||uaa.user
       zones:
        internal:
          hostnames:
