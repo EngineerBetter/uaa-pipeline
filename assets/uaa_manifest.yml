@@ -56,6 +56,14 @@ applications:
       jwt:
         token:
           signing-key: tokenKey
+      scim:
+        # users
+        # format is username|password|email|first_name|last_name(|comma-separated-authorities)
+        userids_enabled: true
+        user:
+          override: true
+        users:
+        - admin|c5a935f302c148f56a43eedb87c002fc|admin|||uaa.admin
       zones:
        internal:
          hostnames:
