@@ -95,12 +95,15 @@ jobs:
       params:
         APP_NAME: ((uaa_app_name))
         CF_APP_DOMAIN: ((cf_app_domain))
+        ADMIN_SECRET: ((admin_secret))
+        USER_PASSWORD: ((user_password))
       run:
         path: bash
         args:
         - -euc
         - |
-          sed "s/@appname@/$APP_NAME/g;s/@appdomain@/$CF_APP_DOMAIN/g" uaa-pipeline-repo/assets/uaa_manifest.yml > uaa-manifest/manifest.yml
+          sed "s/@appname@/$APP_NAME/g;s/@appdomain@/$CF_APP_DOMAIN/g;s/@adminsecret@/$ADMIN_SECRET/g;s/@userpassword@/$USER_PASSWORD/g" \
+            uaa-pipeline-repo/assets/uaa_manifest.yml > uaa-manifest/manifest.yml
   - put: cf
     params:
       manifest: uaa-manifest/manifest.yml
