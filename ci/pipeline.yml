@@ -132,6 +132,7 @@ jobs:
         CF_APP_DOMAIN: ((cf_app_domain))
         ADMIN_SECRET: ((admin_secret))
         USER_PASSWORD: ((user_password))
+        SKIP_CERT_CHECK: ((skip_cert_check))
       run:
         path: sh
         args:
