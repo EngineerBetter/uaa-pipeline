@@ -56,14 +56,21 @@ applications:
       jwt:
         token:
           signing-key: tokenKey
+      oauth:
+        clients:
+          admin:
+            authorized-grant-types: client_credentials
+            authorities: clients.read,clients.write,clients.secret,uaa.admin,scim.read,scim.write,password.write
+            id: admin
+            secret: client-secret
       scim:
-        # users
         # format is username|password|email|first_name|last_name(|comma-separated-authorities)
         userids_enabled: true
         user:
           override: true
         users:
-        - admin|c5a935f302c148f56a43eedb87c002fc|admin|||uaa.admin
+        - admin|user-secret|admin|||uaa.admin
+        - user|user-secret|user|||uaa.user
       zones:
        internal:
          hostnames:
