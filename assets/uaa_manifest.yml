@@ -58,12 +58,18 @@ applications:
           signing-key: tokenKey
       oauth:
         clients:
-          admin:
+          superadmin:
             authorized-grant-types: client_credentials
-            authorities: clients.read,clients.write,clients.secret,uaa.admin,scim.read,scim.write,password.write
-            scope: uaa.admin
-            id: admin
+            authorities: uaa.admin,clients.read,clients.write,clients.secret,scim.read,scim.write,clients.admin
+            scope: uaa.none
             secret: client-secret
+          admin:
+            authorized-grant-types: password, refresh_token
+            authorities: uaa.none
+            scope: uaa.user,password.write,scim.userids,scim.read,scim.write
+            autoapprove: true
+            access-token-validity: 7200
+            refresh-token-validity: 1209600
       scim:
         # format is username|password|email|first_name|last_name(|comma-separated-authorities)
         userids_enabled: true
