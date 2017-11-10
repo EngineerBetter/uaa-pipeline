@@ -5,7 +5,7 @@ applications:
   disk_quota: 1024M
   health-check-type: http
   health-check-http-endpoint: /healthz
-  timeout: 120
+  timeout: 150
   routes:
   - route: @appname@.@appdomain@
   buildpack: https://github.com/cloudfoundry/java-buildpack.git#v3.19.2
