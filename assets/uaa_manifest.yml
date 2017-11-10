@@ -61,6 +61,7 @@ applications:
           admin:
             authorized-grant-types: client_credentials
             authorities: clients.read,clients.write,clients.secret,uaa.admin,scim.read,scim.write,password.write
+            scope: uaa.admin
             id: admin
             secret: client-secret
       scim:
