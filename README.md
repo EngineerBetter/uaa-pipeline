@@ -26,6 +26,12 @@ tf_bucket_name: a_cool_name
 uaa_app_name: myuaa
 
 skip_cert_check: true
+
+# UAA credentials
+# Clients
+admin_secret: 3c151ec1128567f9870eaa7a1360194c
+# Users
+user_password: 6abbc3a8595f878065e879e5c80d6144
 ```
 
 Then, assuming you are logged in to a Concourse with the target name `lite`, set the pipeline with:
@@ -39,4 +45,23 @@ fly --target lite set-pipeline \
 
 ## Accessing your UAA
 
-Vist `https://${uaa_app_name}.${cf_app_domain}` and login.
+Vist `https://${uaa_app_name}.${cf_app_domain}` and login using `user/$user_password`.
+
+## Bootstrapped Clients & Users
+
+The pipeline will bootstrap two clients and one user using credentials passed in your secrets file.
+
+To test you will need the [uaac CLI tool](https://github.com/cloudfoundry/cf-uaac)
+
+```sh
+# Target the UAA
+uaac target https://$uaa_app_name.$cf_app_domain
+
+# Get token of admin client
+uaac token client get admin -s $admin_secret
+uaac token decode
+
+# Get token of bootstrapped user
+uaac token owner get cf user -s "" -p $user_password
+uaac token decode
+```
