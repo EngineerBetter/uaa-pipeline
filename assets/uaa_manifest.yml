@@ -5,7 +5,7 @@ applications:
   disk_quota: 1024M
   health-check-type: http
   health-check-http-endpoint: /healthz
-  timeout: 60
+  timeout: 120
   routes:
   - route: @appname@.@appdomain@
   buildpack: https://github.com/cloudfoundry/java-buildpack.git#v3.19.2
@@ -13,7 +13,7 @@ applications:
     JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: true}'
     LOGIN_URL: http://@appname@.@appdomain@
     UAA_CONFIG_YAML: |
-      spring_profiles: default, mysql
+      spring_profiles: mysql
       login:
         serviceProviderKey: |
           -----BEGIN RSA PRIVATE KEY-----
