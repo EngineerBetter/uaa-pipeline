@@ -84,7 +84,7 @@ jobs:
   - task: build-manifest
     file: uaa-pipeline-repo/ci/tasks/build-manifest.yml
     params:
-      APP_NAME: ((uaa_app_name))
+      APP_NAME: ((app_name))
       CF_APP_DOMAIN: ((cf_app_domain))
       ADMIN_SECRET: ((admin_secret))
       USER_PASSWORD: ((user_password))
@@ -106,7 +106,8 @@ jobs:
   - task: bootstrap-admin
     file: uaa-pipeline-repo/ci/tasks/bootstrap-admin.yml
     params:
-      APP_NAME: ((uaa_app_name))
+      ADMIN_SECRET: ((admin_secret))
+      APP_NAME: ((app_name))
       BOOTSTRAP_ADMIN_NAME: ((bootstrap_admin_name))
       BOOTSTRAP_ADMIN_SECRET: ((bootstrap_admin_secret))
       CF_APP_DOMAIN: ((cf_app_domain))
@@ -125,7 +126,7 @@ jobs:
   - task: test-uaa
     file: uaa-pipeline-repo/ci/tasks/test-uaa.yml
     params:
-      APP_NAME: ((uaa_app_name))
+      APP_NAME: ((app_name))
       CF_APP_DOMAIN: ((cf_app_domain))
       ADMIN_SECRET: ((admin_secret))
       USER_PASSWORD: ((user_password))
