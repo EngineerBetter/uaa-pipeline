@@ -1,0 +1,21 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: governmentpaas/cf-uaac
+    tag: latest
+
+inputs:
+- name: uaa-pipeline-repo
+
+run:
+  path: uaa-pipeline-repo/ci/tasks/bootrap-admin.sh
+
+params:
+  APP_NAME:
+  BOOTSTRAP_ADMIN_NAME:
+  BOOTSTRAP_ADMIN_SECRET:
+  CF_APP_DOMAIN:
+  SKIP_CERT_CHECK:
