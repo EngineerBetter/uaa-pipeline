@@ -1,0 +1,23 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: engineerbetter/pcf-ops
+    tag: latest
+
+inputs:
+- name: uaa-pipeline-repo
+
+outputs:
+- name: uaa-manifest
+
+run:
+  path: uaa-pipeline-repo/ci/tasks/build-manifest.sh
+
+params:
+  APP_NAME:
+  CF_APP_DOMAIN:
+  ADMIN_SECRET:
+  USER_PASSWORD:

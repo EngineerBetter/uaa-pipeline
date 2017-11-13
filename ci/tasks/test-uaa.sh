@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -eu
+
 if [ "${SKIP_CERT_CHECK}" = "true" ]; then
   uaac target "https://${APP_NAME}.${CF_APP_DOMAIN}" --skip-ssl-validation
 else
