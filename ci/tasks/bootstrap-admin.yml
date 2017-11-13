@@ -11,7 +11,7 @@ inputs:
 - name: uaa-pipeline-repo
 
 run:
-  path: uaa-pipeline-repo/ci/tasks/bootrap-admin.sh
+  path: uaa-pipeline-repo/ci/tasks/bootstrap-admin.sh
 
 params:
   APP_NAME:
