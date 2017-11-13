@@ -133,11 +133,11 @@ jobs:
   - get: uaa-pipeline-repo
     trigger: true
     passed:
-    - deploy-uaa
+    - bootstrap-admin
   - get: cf-tf
     trigger: true
     passed:
-    - deploy-uaa
+    - bootstrap-admin
   - task: test-uaa
     file: uaa-pipeline-repo/ci/tasks/test-uaa.yml
     params:
