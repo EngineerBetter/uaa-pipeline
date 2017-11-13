@@ -26,6 +26,7 @@ resources:
     paths:
     - assets/uaa_manifest.yml
     - terraform/*
+    - ci/tasks/*
 
 - name: cf-tf
   type: terraform
