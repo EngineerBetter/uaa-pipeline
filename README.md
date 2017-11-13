@@ -30,6 +30,8 @@ skip_cert_check: true
 # UAA credentials
 # Clients
 admin_secret: 3c151ec1128567f9870eaa7a1360194c
+bootstrap_admin_name: test-admin
+bootstrap_admin_secret: test-admin
 # Users
 user_password: 6abbc3a8595f878065e879e5c80d6144
 ```
@@ -64,4 +66,31 @@ uaac token decode
 # Get token of bootstrapped user
 uaac token owner get cf user -s "" -p $user_password
 uaac token decode
+```
+
+### Additional admin client
+
+The pipeline will also use `uaac` to create another admin client so that the root one need not be exposed. This client will use the name and secret defined in `bootstrap_admin_name` and `bootstrap_admin_secret` in the pipeline secrets.
+
+On each run of the pipeline this client will be created if it doesn't exist or will be updated if it does.
+
+To check that the client has been created you can use `uaac`:
+
+```sh
+uaac target https://$uaa_app_name.$cf_app_domain
+uaac token client get admin -s $admin_secret
+uaac clients
+```
+
+You should see an output containing an entry resembling:
+
+```sh
+$bootstrap_admin_name
+    scope: uaa.none
+    resource_ids: none
+    authorized_grant_types: client_credentials
+    autoapprove:
+    authorities: uaa.admin
+    name: $bootstrap_admin_name
+    lastmodified: 1510592446000
 ```
