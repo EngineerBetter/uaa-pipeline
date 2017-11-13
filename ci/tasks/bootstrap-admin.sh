@@ -10,8 +10,18 @@ fi
 
 uaac token client get admin -s ${ADMIN_SECRET}
 
-uaac client get "$BOOTSTRAP_ADMIN_NAME" || \
-uaac client add "$BOOTSTRAP_ADMIN_NAME" \
+set +e
+uaac client get "$BOOTSTRAP_ADMIN_NAME"
+client_already_exists=$?
+set -e
+
+VERB="add"
+
+if [ $client_already_exists -eq 0 ]; then
+  VERB="update"
+fi
+
+uaac client "$VERB" "$BOOTSTRAP_ADMIN_NAME" \
 --name "$BOOTSTRAP_ADMIN_NAME" \
 --scope uaa.none \
 --authorized_grant_types client_credentials \
