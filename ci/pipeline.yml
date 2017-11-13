@@ -102,7 +102,7 @@ jobs:
     trigger: true
     passed:
     - deploy-uaa
-  - task: test-uaa
+  - task: bootstrap-admin
     file: uaa-pipeline-repo/ci/tasks/bootstrap-admin.yml
     params:
       APP_NAME: ((uaa_app_name))
