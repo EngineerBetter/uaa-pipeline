@@ -94,3 +94,10 @@ $bootstrap_admin_name
     name: $bootstrap_admin_name
     lastmodified: 1510592446000
 ```
+
+You can also retrieve the token of the client with:
+
+```sh
+uaac token client get $bootstrap_admin_name -s $bootstrap_admin_secret
+uaac token decode
+```
