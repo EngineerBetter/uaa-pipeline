@@ -4,36 +4,20 @@ A Concourse pipeline for deploying a UAA as a CF app
 
 ## Setting the pipeline
 
-Populate a secrets file called `secrets.yml` an example for pcfdev is below:
+You'll need to provide various variables to the pipeline:
 
-*NOTE*: the `uaa_app_name` must provide a unique route for the app
+1. Variables describing the environment you're pushing to
+1. Variables bootstrapping your UAA with credentials
+1. Credentials for storing Terraform state
+
+Examples of the first two, targeting PCF Dev, are in `ci/vars/pcfdev.yml`.
+
+Populate a secrets file called `secrets.yml` with the following details to allow the pipeline to persist Terraform state to S3:
 
 ```yaml
-cf_api: https://api.local.pcfdev.io
-cf_app_domain: local.pcfdev.io
-cf_org: pcfdev-org
-cf_space: pcfdev-space
-cf_password: admin
-cf_username: admin
-cf_service_name: p-mysql
-cf_service_plan: 512mb
-
 concourse_ci_s3_access_key: %ACCESS_KEY%
 concourse_ci_s3_secret_key: %SECRET_KEY%
-
 tf_bucket_name: a_cool_name
-
-uaa_app_name: myuaa
-
-skip_cert_check: true
-
-# UAA credentials
-# Clients
-admin_secret: 3c151ec1128567f9870eaa7a1360194c
-bootstrap_admin_name: test-admin
-bootstrap_admin_secret: test-admin
-# Users
-user_password: 6abbc3a8595f878065e879e5c80d6144
 ```
 
 Then, assuming you are logged in to a Concourse with the target name `lite`, set the pipeline with:
@@ -42,6 +26,7 @@ Then, assuming you are logged in to a Concourse with the target name `lite`, set
 fly --target lite set-pipeline \
   --pipeline uaa \
   --config ci/pipeline.yml \
+  --load-vars-from ci/vars/pcfdev.yml
   --load-vars-from secrets.yml
 ```
 
