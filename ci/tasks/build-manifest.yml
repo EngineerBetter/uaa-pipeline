@@ -17,7 +17,7 @@ run:
   path: uaa-pipeline-repo/ci/tasks/build-manifest.sh
 
 params:
-  APP_NAME:
+  UAA_APP_NAME:
   CF_APP_DOMAIN:
   ADMIN_SECRET:
   USER_PASSWORD:

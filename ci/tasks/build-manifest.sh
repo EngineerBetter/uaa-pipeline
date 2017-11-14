@@ -2,7 +2,7 @@
 
 set -eu
 
-sed "s/@appname@/$APP_NAME/g; \
+sed "s/@appname@/$UAA_APP_NAME/g; \
      s/@appdomain@/$CF_APP_DOMAIN/g; \
      s/@adminsecret@/$ADMIN_SECRET/g; \
      s/@userpassword@/$USER_PASSWORD/g" \

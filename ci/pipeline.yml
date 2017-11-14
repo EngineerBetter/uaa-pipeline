@@ -84,7 +84,7 @@ jobs:
   - task: build-manifest
     file: uaa-pipeline-repo/ci/tasks/build-manifest.yml
     params:
-      APP_NAME: ((app_name))
+      UAA_APP_NAME: ((uaa_app_name))
       CF_APP_DOMAIN: ((cf_app_domain))
       ADMIN_SECRET: ((admin_secret))
       USER_PASSWORD: ((user_password))
