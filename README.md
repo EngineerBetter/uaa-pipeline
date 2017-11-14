@@ -18,6 +18,18 @@ Populate a secrets file called `secrets.yml` with the following details to allow
 concourse_ci_s3_access_key: %ACCESS_KEY%
 concourse_ci_s3_secret_key: %SECRET_KEY%
 tf_bucket_name: a_cool_name
+
+app_name: myuaa
+
+skip_cert_check: true
+
+# UAA credentials
+# Clients
+admin_secret: 3c151ec1128567f9870eaa7a1360194c
+bootstrap_admin_name: test-admin
+bootstrap_admin_secret: test-admin
+# Users
+user_password: 6abbc3a8595f878065e879e5c80d6144
 ```
 
 Then, assuming you are logged in to a Concourse with the target name `lite`, set the pipeline with:
