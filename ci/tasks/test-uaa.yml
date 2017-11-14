@@ -14,8 +14,8 @@ run:
   path: uaa-pipeline-repo/ci/tasks/test-uaa.sh
 
 params:
-  APP_NAME:
   CF_APP_DOMAIN:
   ADMIN_SECRET:
   USER_PASSWORD:
   SKIP_CERT_CHECK:
+  UAA_APP_NAME:

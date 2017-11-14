@@ -3,9 +3,9 @@
 set -eu
 
 if [ "${SKIP_CERT_CHECK}" = "true" ]; then
-  uaac target "https://${APP_NAME}.${CF_APP_DOMAIN}" --skip-ssl-validation
+  uaac target "https://${UAA_APP_NAME}.${CF_APP_DOMAIN}" --skip-ssl-validation
 else
-  uaac target "https://${APP_NAME}.${CF_APP_DOMAIN}"
+  uaac target "https://${UAA_APP_NAME}.${CF_APP_DOMAIN}"
 fi
 
 echo "Check that admin client exists"

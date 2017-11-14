@@ -107,11 +107,11 @@ jobs:
     file: uaa-pipeline-repo/ci/tasks/bootstrap-admin.yml
     params:
       ADMIN_SECRET: ((admin_secret))
-      APP_NAME: ((app_name))
       BOOTSTRAP_ADMIN_NAME: ((bootstrap_admin_name))
       BOOTSTRAP_ADMIN_SECRET: ((bootstrap_admin_secret))
       CF_APP_DOMAIN: ((cf_app_domain))
       SKIP_CERT_CHECK: ((skip_cert_check))
+      UAA_APP_NAME: ((uaa_app_name))
 
 - name: test-uaa
   plan:
@@ -126,8 +126,8 @@ jobs:
   - task: test-uaa
     file: uaa-pipeline-repo/ci/tasks/test-uaa.yml
     params:
-      APP_NAME: ((app_name))
       CF_APP_DOMAIN: ((cf_app_domain))
       ADMIN_SECRET: ((admin_secret))
       USER_PASSWORD: ((user_password))
       SKIP_CERT_CHECK: ((skip_cert_check))
+      UAA_APP_NAME: ((uaa_app_name))
