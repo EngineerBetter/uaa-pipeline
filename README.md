@@ -44,7 +44,7 @@ fly --target lite set-pipeline \
 
 ## Accessing your UAA
 
-Vist `https://${uaa_app_name}.${cf_app_domain}` and login using `user/$user_password`.
+Vist `https://${app_name}.${cf_app_domain}` and login using `user/$user_password`.
 
 ## Bootstrapped Clients & Users
 
@@ -54,7 +54,7 @@ To test you will need the [uaac CLI tool](https://github.com/cloudfoundry/cf-uaa
 
 ```sh
 # Target the UAA
-uaac target https://$uaa_app_name.$cf_app_domain
+uaac target https://$app_name.$cf_app_domain
 
 # Get token of admin client
 uaac token client get admin -s $admin_secret
@@ -74,7 +74,7 @@ On each run of the pipeline this client will be created if it doesn't exist or w
 To check that the client has been created you can use `uaac`:
 
 ```sh
-uaac target https://$uaa_app_name.$cf_app_domain
+uaac target https://$app_name.$cf_app_domain
 uaac token client get admin -s $admin_secret
 uaac clients
 ```

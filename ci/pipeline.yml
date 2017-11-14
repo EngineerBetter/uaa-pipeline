@@ -84,7 +84,7 @@ jobs:
   - task: build-manifest
     file: uaa-pipeline-repo/ci/tasks/build-manifest.yml
     params:
-      UAA_APP_NAME: ((uaa_app_name))
+      APP_NAME: ((app_name))
       CF_APP_DOMAIN: ((cf_app_domain))
       ADMIN_SECRET: ((admin_secret))
       USER_PASSWORD: ((user_password))
@@ -111,7 +111,7 @@ jobs:
       BOOTSTRAP_ADMIN_SECRET: ((bootstrap_admin_secret))
       CF_APP_DOMAIN: ((cf_app_domain))
       SKIP_CERT_CHECK: ((skip_cert_check))
-      UAA_APP_NAME: ((uaa_app_name))
+      APP_NAME: ((app_name))
 
 - name: test-uaa
   plan:
@@ -130,4 +130,4 @@ jobs:
       ADMIN_SECRET: ((admin_secret))
       USER_PASSWORD: ((user_password))
       SKIP_CERT_CHECK: ((skip_cert_check))
-      UAA_APP_NAME: ((uaa_app_name))
+      APP_NAME: ((app_name))
